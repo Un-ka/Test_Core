@@ -1,0 +1,6 @@
+"Core/Src/main.o"
+"Core/Startup/startup_stm32f030f4px.o"
+"Drivers/Core/Device/STM32F0xx/Source/RCC_HSI_48_Init.o"
+"Drivers/Core/Device/STM32F0xx/Source/Timers.o"
+"Drivers/Core/Device/STM32F0xx/Source/system_stm32f0xx.o"
+"Drivers/Library/Src/SButton.o"

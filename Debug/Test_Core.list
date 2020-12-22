@@ -1,0 +1,806 @@
+
+Test_Core.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .isr_vector   000000c0  08000000  08000000  00010000  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  1 .text         00000550  080000c0  080000c0  000100c0  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .rodata       00000010  08000610  08000610  00010610  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .ARM.extab    00000000  08000620  08000620  00020004  2**0
+                  CONTENTS
+  4 .ARM          00000000  08000620  08000620  00020004  2**0
+                  CONTENTS
+  5 .preinit_array 00000000  08000620  08000620  00020004  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  6 .init_array   00000004  08000620  08000620  00010620  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  7 .fini_array   00000004  08000624  08000624  00010624  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  8 .data         00000004  20000000  08000628  00020000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  9 .bss          0000002c  20000004  0800062c  00020004  2**2
+                  ALLOC
+ 10 ._user_heap_stack 00000600  20000030  0800062c  00020030  2**0
+                  ALLOC
+ 11 .ARM.attributes 00000028  00000000  00000000  00020004  2**0
+                  CONTENTS, READONLY
+ 12 .debug_info   00001f31  00000000  00000000  0002002c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_abbrev 000008c2  00000000  00000000  00021f5d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_aranges 000001a8  00000000  00000000  00022820  2**3
+                  CONTENTS, READONLY, DEBUGGING
+ 15 .debug_ranges 00000198  00000000  00000000  000229c8  2**3
+                  CONTENTS, READONLY, DEBUGGING
+ 16 .debug_macro  00009642  00000000  00000000  00022b60  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 17 .debug_line   00002149  00000000  00000000  0002c1a2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 18 .debug_str    0002cbbb  00000000  00000000  0002e2eb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 19 .comment      0000007b  00000000  00000000  0005aea6  2**0
+                  CONTENTS, READONLY
+ 20 .debug_frame  00000368  00000000  00000000  0005af24  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 21 .debug_loc    0000064d  00000000  00000000  0005b28c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+080000c0 <__do_global_dtors_aux>:
+ 80000c0:	b510      	push	{r4, lr}
+ 80000c2:	4c06      	ldr	r4, [pc, #24]	; (80000dc <__do_global_dtors_aux+0x1c>)
+ 80000c4:	7823      	ldrb	r3, [r4, #0]
+ 80000c6:	2b00      	cmp	r3, #0
+ 80000c8:	d107      	bne.n	80000da <__do_global_dtors_aux+0x1a>
+ 80000ca:	4b05      	ldr	r3, [pc, #20]	; (80000e0 <__do_global_dtors_aux+0x20>)
+ 80000cc:	2b00      	cmp	r3, #0
+ 80000ce:	d002      	beq.n	80000d6 <__do_global_dtors_aux+0x16>
+ 80000d0:	4804      	ldr	r0, [pc, #16]	; (80000e4 <__do_global_dtors_aux+0x24>)
+ 80000d2:	e000      	b.n	80000d6 <__do_global_dtors_aux+0x16>
+ 80000d4:	bf00      	nop
+ 80000d6:	2301      	movs	r3, #1
+ 80000d8:	7023      	strb	r3, [r4, #0]
+ 80000da:	bd10      	pop	{r4, pc}
+ 80000dc:	20000004 	.word	0x20000004
+ 80000e0:	00000000 	.word	0x00000000
+ 80000e4:	080005f8 	.word	0x080005f8
+
+080000e8 <frame_dummy>:
+ 80000e8:	4b04      	ldr	r3, [pc, #16]	; (80000fc <frame_dummy+0x14>)
+ 80000ea:	b510      	push	{r4, lr}
+ 80000ec:	2b00      	cmp	r3, #0
+ 80000ee:	d003      	beq.n	80000f8 <frame_dummy+0x10>
+ 80000f0:	4903      	ldr	r1, [pc, #12]	; (8000100 <frame_dummy+0x18>)
+ 80000f2:	4804      	ldr	r0, [pc, #16]	; (8000104 <frame_dummy+0x1c>)
+ 80000f4:	e000      	b.n	80000f8 <frame_dummy+0x10>
+ 80000f6:	bf00      	nop
+ 80000f8:	bd10      	pop	{r4, pc}
+ 80000fa:	46c0      	nop			; (mov r8, r8)
+ 80000fc:	00000000 	.word	0x00000000
+ 8000100:	20000008 	.word	0x20000008
+ 8000104:	080005f8 	.word	0x080005f8
+
+08000108 <__udivsi3>:
+ 8000108:	2200      	movs	r2, #0
+ 800010a:	0843      	lsrs	r3, r0, #1
+ 800010c:	428b      	cmp	r3, r1
+ 800010e:	d374      	bcc.n	80001fa <__udivsi3+0xf2>
+ 8000110:	0903      	lsrs	r3, r0, #4
+ 8000112:	428b      	cmp	r3, r1
+ 8000114:	d35f      	bcc.n	80001d6 <__udivsi3+0xce>
+ 8000116:	0a03      	lsrs	r3, r0, #8
+ 8000118:	428b      	cmp	r3, r1
+ 800011a:	d344      	bcc.n	80001a6 <__udivsi3+0x9e>
+ 800011c:	0b03      	lsrs	r3, r0, #12
+ 800011e:	428b      	cmp	r3, r1
+ 8000120:	d328      	bcc.n	8000174 <__udivsi3+0x6c>
+ 8000122:	0c03      	lsrs	r3, r0, #16
+ 8000124:	428b      	cmp	r3, r1
+ 8000126:	d30d      	bcc.n	8000144 <__udivsi3+0x3c>
+ 8000128:	22ff      	movs	r2, #255	; 0xff
+ 800012a:	0209      	lsls	r1, r1, #8
+ 800012c:	ba12      	rev	r2, r2
+ 800012e:	0c03      	lsrs	r3, r0, #16
+ 8000130:	428b      	cmp	r3, r1
+ 8000132:	d302      	bcc.n	800013a <__udivsi3+0x32>
+ 8000134:	1212      	asrs	r2, r2, #8
+ 8000136:	0209      	lsls	r1, r1, #8
+ 8000138:	d065      	beq.n	8000206 <__udivsi3+0xfe>
+ 800013a:	0b03      	lsrs	r3, r0, #12
+ 800013c:	428b      	cmp	r3, r1
+ 800013e:	d319      	bcc.n	8000174 <__udivsi3+0x6c>
+ 8000140:	e000      	b.n	8000144 <__udivsi3+0x3c>
+ 8000142:	0a09      	lsrs	r1, r1, #8
+ 8000144:	0bc3      	lsrs	r3, r0, #15
+ 8000146:	428b      	cmp	r3, r1
+ 8000148:	d301      	bcc.n	800014e <__udivsi3+0x46>
+ 800014a:	03cb      	lsls	r3, r1, #15
+ 800014c:	1ac0      	subs	r0, r0, r3
+ 800014e:	4152      	adcs	r2, r2
+ 8000150:	0b83      	lsrs	r3, r0, #14
+ 8000152:	428b      	cmp	r3, r1
+ 8000154:	d301      	bcc.n	800015a <__udivsi3+0x52>
+ 8000156:	038b      	lsls	r3, r1, #14
+ 8000158:	1ac0      	subs	r0, r0, r3
+ 800015a:	4152      	adcs	r2, r2
+ 800015c:	0b43      	lsrs	r3, r0, #13
+ 800015e:	428b      	cmp	r3, r1
+ 8000160:	d301      	bcc.n	8000166 <__udivsi3+0x5e>
+ 8000162:	034b      	lsls	r3, r1, #13
+ 8000164:	1ac0      	subs	r0, r0, r3
+ 8000166:	4152      	adcs	r2, r2
+ 8000168:	0b03      	lsrs	r3, r0, #12
+ 800016a:	428b      	cmp	r3, r1
+ 800016c:	d301      	bcc.n	8000172 <__udivsi3+0x6a>
+ 800016e:	030b      	lsls	r3, r1, #12
+ 8000170:	1ac0      	subs	r0, r0, r3
+ 8000172:	4152      	adcs	r2, r2
+ 8000174:	0ac3      	lsrs	r3, r0, #11
+ 8000176:	428b      	cmp	r3, r1
+ 8000178:	d301      	bcc.n	800017e <__udivsi3+0x76>
+ 800017a:	02cb      	lsls	r3, r1, #11
+ 800017c:	1ac0      	subs	r0, r0, r3
+ 800017e:	4152      	adcs	r2, r2
+ 8000180:	0a83      	lsrs	r3, r0, #10
+ 8000182:	428b      	cmp	r3, r1
+ 8000184:	d301      	bcc.n	800018a <__udivsi3+0x82>
+ 8000186:	028b      	lsls	r3, r1, #10
+ 8000188:	1ac0      	subs	r0, r0, r3
+ 800018a:	4152      	adcs	r2, r2
+ 800018c:	0a43      	lsrs	r3, r0, #9
+ 800018e:	428b      	cmp	r3, r1
+ 8000190:	d301      	bcc.n	8000196 <__udivsi3+0x8e>
+ 8000192:	024b      	lsls	r3, r1, #9
+ 8000194:	1ac0      	subs	r0, r0, r3
+ 8000196:	4152      	adcs	r2, r2
+ 8000198:	0a03      	lsrs	r3, r0, #8
+ 800019a:	428b      	cmp	r3, r1
+ 800019c:	d301      	bcc.n	80001a2 <__udivsi3+0x9a>
+ 800019e:	020b      	lsls	r3, r1, #8
+ 80001a0:	1ac0      	subs	r0, r0, r3
+ 80001a2:	4152      	adcs	r2, r2
+ 80001a4:	d2cd      	bcs.n	8000142 <__udivsi3+0x3a>
+ 80001a6:	09c3      	lsrs	r3, r0, #7
+ 80001a8:	428b      	cmp	r3, r1
+ 80001aa:	d301      	bcc.n	80001b0 <__udivsi3+0xa8>
+ 80001ac:	01cb      	lsls	r3, r1, #7
+ 80001ae:	1ac0      	subs	r0, r0, r3
+ 80001b0:	4152      	adcs	r2, r2
+ 80001b2:	0983      	lsrs	r3, r0, #6
+ 80001b4:	428b      	cmp	r3, r1
+ 80001b6:	d301      	bcc.n	80001bc <__udivsi3+0xb4>
+ 80001b8:	018b      	lsls	r3, r1, #6
+ 80001ba:	1ac0      	subs	r0, r0, r3
+ 80001bc:	4152      	adcs	r2, r2
+ 80001be:	0943      	lsrs	r3, r0, #5
+ 80001c0:	428b      	cmp	r3, r1
+ 80001c2:	d301      	bcc.n	80001c8 <__udivsi3+0xc0>
+ 80001c4:	014b      	lsls	r3, r1, #5
+ 80001c6:	1ac0      	subs	r0, r0, r3
+ 80001c8:	4152      	adcs	r2, r2
+ 80001ca:	0903      	lsrs	r3, r0, #4
+ 80001cc:	428b      	cmp	r3, r1
+ 80001ce:	d301      	bcc.n	80001d4 <__udivsi3+0xcc>
+ 80001d0:	010b      	lsls	r3, r1, #4
+ 80001d2:	1ac0      	subs	r0, r0, r3
+ 80001d4:	4152      	adcs	r2, r2
+ 80001d6:	08c3      	lsrs	r3, r0, #3
+ 80001d8:	428b      	cmp	r3, r1
+ 80001da:	d301      	bcc.n	80001e0 <__udivsi3+0xd8>
+ 80001dc:	00cb      	lsls	r3, r1, #3
+ 80001de:	1ac0      	subs	r0, r0, r3
+ 80001e0:	4152      	adcs	r2, r2
+ 80001e2:	0883      	lsrs	r3, r0, #2
+ 80001e4:	428b      	cmp	r3, r1
+ 80001e6:	d301      	bcc.n	80001ec <__udivsi3+0xe4>
+ 80001e8:	008b      	lsls	r3, r1, #2
+ 80001ea:	1ac0      	subs	r0, r0, r3
+ 80001ec:	4152      	adcs	r2, r2
+ 80001ee:	0843      	lsrs	r3, r0, #1
+ 80001f0:	428b      	cmp	r3, r1
+ 80001f2:	d301      	bcc.n	80001f8 <__udivsi3+0xf0>
+ 80001f4:	004b      	lsls	r3, r1, #1
+ 80001f6:	1ac0      	subs	r0, r0, r3
+ 80001f8:	4152      	adcs	r2, r2
+ 80001fa:	1a41      	subs	r1, r0, r1
+ 80001fc:	d200      	bcs.n	8000200 <__udivsi3+0xf8>
+ 80001fe:	4601      	mov	r1, r0
+ 8000200:	4152      	adcs	r2, r2
+ 8000202:	4610      	mov	r0, r2
+ 8000204:	4770      	bx	lr
+ 8000206:	e7ff      	b.n	8000208 <__udivsi3+0x100>
+ 8000208:	b501      	push	{r0, lr}
+ 800020a:	2000      	movs	r0, #0
+ 800020c:	f000 f806 	bl	800021c <__aeabi_idiv0>
+ 8000210:	bd02      	pop	{r1, pc}
+ 8000212:	46c0      	nop			; (mov r8, r8)
+
+08000214 <__aeabi_uidivmod>:
+ 8000214:	2900      	cmp	r1, #0
+ 8000216:	d0f7      	beq.n	8000208 <__udivsi3+0x100>
+ 8000218:	e776      	b.n	8000108 <__udivsi3>
+ 800021a:	4770      	bx	lr
+
+0800021c <__aeabi_idiv0>:
+ 800021c:	4770      	bx	lr
+ 800021e:	46c0      	nop			; (mov r8, r8)
+
+08000220 <main>:
+
+
+uint32_t Temp_micros, Temp_millis;
+
+int main(void)
+{
+ 8000220:	b510      	push	{r4, lr}
+ 8000222:	b098      	sub	sp, #96	; 0x60
+  SystemClock_Config();                                                         // Обязательная функция. Необходима для инициализации
+ 8000224:	f000 f86a 	bl	80002fc <_Z18SystemClock_Configv>
+                                                                                // тактового генератора и ситемного таймера SysTick
+
+  // Инициализация клавиатуры, способ немного отличен от библиотеки Алекса
+  SButton Butt_Up(SW_UP_Port, SW_UP_Pin, HIGH_PULL, NORM_OPEN);                 // Назначаем кнопку Up
+ 8000228:	2400      	movs	r4, #0
+ 800022a:	2280      	movs	r2, #128	; 0x80
+ 800022c:	2190      	movs	r1, #144	; 0x90
+ 800022e:	0023      	movs	r3, r4
+ 8000230:	00d2      	lsls	r2, r2, #3
+ 8000232:	05c9      	lsls	r1, r1, #23
+ 8000234:	9400      	str	r4, [sp, #0]
+ 8000236:	a803      	add	r0, sp, #12
+ 8000238:	f000 f93a 	bl	80004b0 <_ZN7SButtonC1EP12GPIO_TypeDeftbb>
+  Butt_Up.setTickMode(AUTO);                                                    // Включаем для неё автоматический опрос
+ 800023c:	2101      	movs	r1, #1
+ 800023e:	a803      	add	r0, sp, #12
+ 8000240:	f000 f9ac 	bl	800059c <_ZN7SButton11setTickModeEb>
+  SButton Butt_Down(SW_DOWN_Port, SW_DOWN_Pin, HIGH_PULL, NORM_OPEN);           // Назначам кнопку Down
+ 8000244:	2280      	movs	r2, #128	; 0x80
+ 8000246:	2190      	movs	r1, #144	; 0x90
+ 8000248:	0023      	movs	r3, r4
+ 800024a:	0092      	lsls	r2, r2, #2
+ 800024c:	05c9      	lsls	r1, r1, #23
+ 800024e:	9400      	str	r4, [sp, #0]
+ 8000250:	a80a      	add	r0, sp, #40	; 0x28
+ 8000252:	f000 f92d 	bl	80004b0 <_ZN7SButtonC1EP12GPIO_TypeDeftbb>
+  Butt_Down.setTickMode(AUTO);                                                  // Включаем для неё автоматический опрос
+ 8000256:	2101      	movs	r1, #1
+ 8000258:	a80a      	add	r0, sp, #40	; 0x28
+ 800025a:	f000 f99f 	bl	800059c <_ZN7SButton11setTickModeEb>
+  SButton Butt_Set(SW_SET_Port, SW_SET_Pin, HIGH_PULL, NORM_OPEN);              // Назначаем кнопку Set
+ 800025e:	2190      	movs	r1, #144	; 0x90
+ 8000260:	9400      	str	r4, [sp, #0]
+ 8000262:	05c9      	lsls	r1, r1, #23
+ 8000264:	0023      	movs	r3, r4
+ 8000266:	2280      	movs	r2, #128	; 0x80
+ 8000268:	a811      	add	r0, sp, #68	; 0x44
+ 800026a:	f000 f921 	bl	80004b0 <_ZN7SButtonC1EP12GPIO_TypeDeftbb>
+  Butt_Set.setTickMode(AUTO);                                                   // Включаем для неё автоматический опрос
+ 800026e:	2101      	movs	r1, #1
+ 8000270:	a811      	add	r0, sp, #68	; 0x44
+ 8000272:	f000 f993 	bl	800059c <_ZN7SButton11setTickModeEb>
+   * Вся остальная работа с кнопками так же как и в оригинальной библиотеке Алекса
+   */
+
+  while (1)
+  {
+    Temp_millis = millis();
+ 8000276:	f000 f8c1 	bl	80003fc <_Z6millisv>
+ 800027a:	4c09      	ldr	r4, [pc, #36]	; (80002a0 <main+0x80>)
+ 800027c:	6020      	str	r0, [r4, #0]
+    delay(100);
+ 800027e:	2064      	movs	r0, #100	; 0x64
+ 8000280:	f000 f8d8 	bl	8000434 <_Z5delayt>
+    Temp_millis = millis();
+ 8000284:	f000 f8ba 	bl	80003fc <_Z6millisv>
+ 8000288:	6020      	str	r0, [r4, #0]
+    Temp_micros = micros();
+ 800028a:	f000 f8bd 	bl	8000408 <_Z6microsv>
+ 800028e:	4c05      	ldr	r4, [pc, #20]	; (80002a4 <main+0x84>)
+ 8000290:	6020      	str	r0, [r4, #0]
+    delay(1);
+ 8000292:	2001      	movs	r0, #1
+ 8000294:	f000 f8ce 	bl	8000434 <_Z5delayt>
+    Temp_micros = micros();
+ 8000298:	f000 f8b6 	bl	8000408 <_Z6microsv>
+ 800029c:	6020      	str	r0, [r4, #0]
+ 800029e:	e7ea      	b.n	8000276 <main+0x56>
+ 80002a0:	20000024 	.word	0x20000024
+ 80002a4:	20000020 	.word	0x20000020
+
+080002a8 <Reset_Handler>:
+ 80002a8:	480d      	ldr	r0, [pc, #52]	; (80002e0 <LoopForever+0x2>)
+ 80002aa:	4685      	mov	sp, r0
+ 80002ac:	480d      	ldr	r0, [pc, #52]	; (80002e4 <LoopForever+0x6>)
+ 80002ae:	490e      	ldr	r1, [pc, #56]	; (80002e8 <LoopForever+0xa>)
+ 80002b0:	4a0e      	ldr	r2, [pc, #56]	; (80002ec <LoopForever+0xe>)
+ 80002b2:	2300      	movs	r3, #0
+ 80002b4:	e002      	b.n	80002bc <LoopCopyDataInit>
+
+080002b6 <CopyDataInit>:
+ 80002b6:	58d4      	ldr	r4, [r2, r3]
+ 80002b8:	50c4      	str	r4, [r0, r3]
+ 80002ba:	3304      	adds	r3, #4
+
+080002bc <LoopCopyDataInit>:
+ 80002bc:	18c4      	adds	r4, r0, r3
+ 80002be:	428c      	cmp	r4, r1
+ 80002c0:	d3f9      	bcc.n	80002b6 <CopyDataInit>
+ 80002c2:	4a0b      	ldr	r2, [pc, #44]	; (80002f0 <LoopForever+0x12>)
+ 80002c4:	4c0b      	ldr	r4, [pc, #44]	; (80002f4 <LoopForever+0x16>)
+ 80002c6:	2300      	movs	r3, #0
+ 80002c8:	e001      	b.n	80002ce <LoopFillZerobss>
+
+080002ca <FillZerobss>:
+ 80002ca:	6013      	str	r3, [r2, #0]
+ 80002cc:	3204      	adds	r2, #4
+
+080002ce <LoopFillZerobss>:
+ 80002ce:	42a2      	cmp	r2, r4
+ 80002d0:	d3fb      	bcc.n	80002ca <FillZerobss>
+ 80002d2:	f000 f8bb 	bl	800044c <SystemInit>
+ 80002d6:	f000 f96b 	bl	80005b0 <__libc_init_array>
+ 80002da:	f7ff ffa1 	bl	8000220 <main>
+
+080002de <LoopForever>:
+ 80002de:	e7fe      	b.n	80002de <LoopForever>
+ 80002e0:	20001000 	.word	0x20001000
+ 80002e4:	20000000 	.word	0x20000000
+ 80002e8:	20000004 	.word	0x20000004
+ 80002ec:	08000628 	.word	0x08000628
+ 80002f0:	20000004 	.word	0x20000004
+ 80002f4:	20000030 	.word	0x20000030
+
+080002f8 <ADC1_IRQHandler>:
+ 80002f8:	e7fe      	b.n	80002f8 <ADC1_IRQHandler>
+	...
+
+080002fc <_Z18SystemClock_Configv>:
+ 80002fc:	2202      	movs	r2, #2
+ 80002fe:	4b1d      	ldr	r3, [pc, #116]	; (8000374 <_Z18SystemClock_Configv+0x78>)
+ 8000300:	b510      	push	{r4, lr}
+ 8000302:	6819      	ldr	r1, [r3, #0]
+ 8000304:	4211      	tst	r1, r2
+ 8000306:	d10b      	bne.n	8000320 <_Z18SystemClock_Configv+0x24>
+ 8000308:	2101      	movs	r1, #1
+ 800030a:	6818      	ldr	r0, [r3, #0]
+ 800030c:	4301      	orrs	r1, r0
+ 800030e:	6019      	str	r1, [r3, #0]
+ 8000310:	4919      	ldr	r1, [pc, #100]	; (8000378 <_Z18SystemClock_Configv+0x7c>)
+ 8000312:	6818      	ldr	r0, [r3, #0]
+ 8000314:	4210      	tst	r0, r2
+ 8000316:	d103      	bne.n	8000320 <_Z18SystemClock_Configv+0x24>
+ 8000318:	3901      	subs	r1, #1
+ 800031a:	2900      	cmp	r1, #0
+ 800031c:	d1f9      	bne.n	8000312 <_Z18SystemClock_Configv+0x16>
+ 800031e:	bd10      	pop	{r4, pc}
+ 8000320:	2202      	movs	r2, #2
+ 8000322:	6859      	ldr	r1, [r3, #4]
+ 8000324:	430a      	orrs	r2, r1
+ 8000326:	605a      	str	r2, [r3, #4]
+ 8000328:	22a0      	movs	r2, #160	; 0xa0
+ 800032a:	6859      	ldr	r1, [r3, #4]
+ 800032c:	0392      	lsls	r2, r2, #14
+ 800032e:	430a      	orrs	r2, r1
+ 8000330:	605a      	str	r2, [r3, #4]
+ 8000332:	685a      	ldr	r2, [r3, #4]
+ 8000334:	605a      	str	r2, [r3, #4]
+ 8000336:	2280      	movs	r2, #128	; 0x80
+ 8000338:	6819      	ldr	r1, [r3, #0]
+ 800033a:	0452      	lsls	r2, r2, #17
+ 800033c:	430a      	orrs	r2, r1
+ 800033e:	2180      	movs	r1, #128	; 0x80
+ 8000340:	601a      	str	r2, [r3, #0]
+ 8000342:	4a0d      	ldr	r2, [pc, #52]	; (8000378 <_Z18SystemClock_Configv+0x7c>)
+ 8000344:	0489      	lsls	r1, r1, #18
+ 8000346:	6818      	ldr	r0, [r3, #0]
+ 8000348:	4208      	tst	r0, r1
+ 800034a:	d107      	bne.n	800035c <_Z18SystemClock_Configv+0x60>
+ 800034c:	3a01      	subs	r2, #1
+ 800034e:	2a00      	cmp	r2, #0
+ 8000350:	d1f9      	bne.n	8000346 <_Z18SystemClock_Configv+0x4a>
+ 8000352:	681a      	ldr	r2, [r3, #0]
+ 8000354:	4909      	ldr	r1, [pc, #36]	; (800037c <_Z18SystemClock_Configv+0x80>)
+ 8000356:	400a      	ands	r2, r1
+ 8000358:	601a      	str	r2, [r3, #0]
+ 800035a:	e7e0      	b.n	800031e <_Z18SystemClock_Configv+0x22>
+ 800035c:	2202      	movs	r2, #2
+ 800035e:	4808      	ldr	r0, [pc, #32]	; (8000380 <_Z18SystemClock_Configv+0x84>)
+ 8000360:	6801      	ldr	r1, [r0, #0]
+ 8000362:	4311      	orrs	r1, r2
+ 8000364:	6001      	str	r1, [r0, #0]
+ 8000366:	6859      	ldr	r1, [r3, #4]
+ 8000368:	430a      	orrs	r2, r1
+ 800036a:	605a      	str	r2, [r3, #4]
+ 800036c:	f000 f80a 	bl	8000384 <_Z13SysTickConfigv>
+ 8000370:	e7d5      	b.n	800031e <_Z18SystemClock_Configv+0x22>
+ 8000372:	46c0      	nop			; (mov r8, r8)
+ 8000374:	40021000 	.word	0x40021000
+ 8000378:	00001002 	.word	0x00001002
+ 800037c:	feffffff 	.word	0xfeffffff
+ 8000380:	40022000 	.word	0x40022000
+
+08000384 <_Z13SysTickConfigv>:
+ 8000384:	b510      	push	{r4, lr}
+ 8000386:	f000 f863 	bl	8000450 <SystemCoreClockUpdate>
+ 800038a:	21fa      	movs	r1, #250	; 0xfa
+ 800038c:	4b0f      	ldr	r3, [pc, #60]	; (80003cc <_Z13SysTickConfigv+0x48>)
+ 800038e:	0089      	lsls	r1, r1, #2
+ 8000390:	681c      	ldr	r4, [r3, #0]
+ 8000392:	0020      	movs	r0, r4
+ 8000394:	f7ff feb8 	bl	8000108 <__udivsi3>
+ 8000398:	4b0d      	ldr	r3, [pc, #52]	; (80003d0 <_Z13SysTickConfigv+0x4c>)
+ 800039a:	3801      	subs	r0, #1
+ 800039c:	4298      	cmp	r0, r3
+ 800039e:	d80d      	bhi.n	80003bc <_Z13SysTickConfigv+0x38>
+ 80003a0:	21c0      	movs	r1, #192	; 0xc0
+ 80003a2:	4a0c      	ldr	r2, [pc, #48]	; (80003d4 <_Z13SysTickConfigv+0x50>)
+ 80003a4:	0609      	lsls	r1, r1, #24
+ 80003a6:	6050      	str	r0, [r2, #4]
+ 80003a8:	480b      	ldr	r0, [pc, #44]	; (80003d8 <_Z13SysTickConfigv+0x54>)
+ 80003aa:	6a03      	ldr	r3, [r0, #32]
+ 80003ac:	021b      	lsls	r3, r3, #8
+ 80003ae:	0a1b      	lsrs	r3, r3, #8
+ 80003b0:	430b      	orrs	r3, r1
+ 80003b2:	6203      	str	r3, [r0, #32]
+ 80003b4:	2300      	movs	r3, #0
+ 80003b6:	6093      	str	r3, [r2, #8]
+ 80003b8:	3307      	adds	r3, #7
+ 80003ba:	6013      	str	r3, [r2, #0]
+ 80003bc:	4907      	ldr	r1, [pc, #28]	; (80003dc <_Z13SysTickConfigv+0x58>)
+ 80003be:	0020      	movs	r0, r4
+ 80003c0:	f7ff fea2 	bl	8000108 <__udivsi3>
+ 80003c4:	4b06      	ldr	r3, [pc, #24]	; (80003e0 <_Z13SysTickConfigv+0x5c>)
+ 80003c6:	6018      	str	r0, [r3, #0]
+ 80003c8:	bd10      	pop	{r4, pc}
+ 80003ca:	46c0      	nop			; (mov r8, r8)
+ 80003cc:	20000000 	.word	0x20000000
+ 80003d0:	00ffffff 	.word	0x00ffffff
+ 80003d4:	e000e010 	.word	0xe000e010
+ 80003d8:	e000ed00 	.word	0xe000ed00
+ 80003dc:	000f4240 	.word	0x000f4240
+ 80003e0:	20000028 	.word	0x20000028
+
+080003e4 <SysTick_Handler>:
+ 80003e4:	4a03      	ldr	r2, [pc, #12]	; (80003f4 <SysTick_Handler+0x10>)
+ 80003e6:	4b04      	ldr	r3, [pc, #16]	; (80003f8 <SysTick_Handler+0x14>)
+ 80003e8:	681b      	ldr	r3, [r3, #0]
+ 80003ea:	6813      	ldr	r3, [r2, #0]
+ 80003ec:	3301      	adds	r3, #1
+ 80003ee:	6013      	str	r3, [r2, #0]
+ 80003f0:	4770      	bx	lr
+ 80003f2:	46c0      	nop			; (mov r8, r8)
+ 80003f4:	2000002c 	.word	0x2000002c
+ 80003f8:	e000e010 	.word	0xe000e010
+
+080003fc <_Z6millisv>:
+ 80003fc:	4b01      	ldr	r3, [pc, #4]	; (8000404 <_Z6millisv+0x8>)
+ 80003fe:	6818      	ldr	r0, [r3, #0]
+ 8000400:	4770      	bx	lr
+ 8000402:	46c0      	nop			; (mov r8, r8)
+ 8000404:	2000002c 	.word	0x2000002c
+
+08000408 <_Z6microsv>:
+ 8000408:	4b07      	ldr	r3, [pc, #28]	; (8000428 <_Z6microsv+0x20>)
+ 800040a:	4a08      	ldr	r2, [pc, #32]	; (800042c <_Z6microsv+0x24>)
+ 800040c:	6858      	ldr	r0, [r3, #4]
+ 800040e:	689b      	ldr	r3, [r3, #8]
+ 8000410:	b510      	push	{r4, lr}
+ 8000412:	6811      	ldr	r1, [r2, #0]
+ 8000414:	1ac0      	subs	r0, r0, r3
+ 8000416:	f7ff fe77 	bl	8000108 <__udivsi3>
+ 800041a:	4b05      	ldr	r3, [pc, #20]	; (8000430 <_Z6microsv+0x28>)
+ 800041c:	681a      	ldr	r2, [r3, #0]
+ 800041e:	23fa      	movs	r3, #250	; 0xfa
+ 8000420:	009b      	lsls	r3, r3, #2
+ 8000422:	4353      	muls	r3, r2
+ 8000424:	18c0      	adds	r0, r0, r3
+ 8000426:	bd10      	pop	{r4, pc}
+ 8000428:	e000e010 	.word	0xe000e010
+ 800042c:	20000028 	.word	0x20000028
+ 8000430:	2000002c 	.word	0x2000002c
+
+08000434 <_Z5delayt>:
+ 8000434:	4b04      	ldr	r3, [pc, #16]	; (8000448 <_Z5delayt+0x14>)
+ 8000436:	681a      	ldr	r2, [r3, #0]
+ 8000438:	1880      	adds	r0, r0, r2
+ 800043a:	681a      	ldr	r2, [r3, #0]
+ 800043c:	4290      	cmp	r0, r2
+ 800043e:	d901      	bls.n	8000444 <_Z5delayt+0x10>
+ 8000440:	46c0      	nop			; (mov r8, r8)
+ 8000442:	e7fa      	b.n	800043a <_Z5delayt+0x6>
+ 8000444:	4770      	bx	lr
+ 8000446:	46c0      	nop			; (mov r8, r8)
+ 8000448:	2000002c 	.word	0x2000002c
+
+0800044c <SystemInit>:
+ 800044c:	4770      	bx	lr
+	...
+
+08000450 <SystemCoreClockUpdate>:
+ 8000450:	220c      	movs	r2, #12
+ 8000452:	b570      	push	{r4, r5, r6, lr}
+ 8000454:	4d11      	ldr	r5, [pc, #68]	; (800049c <SystemCoreClockUpdate+0x4c>)
+ 8000456:	4e12      	ldr	r6, [pc, #72]	; (80004a0 <SystemCoreClockUpdate+0x50>)
+ 8000458:	686b      	ldr	r3, [r5, #4]
+ 800045a:	4013      	ands	r3, r2
+ 800045c:	2b08      	cmp	r3, #8
+ 800045e:	d00a      	beq.n	8000476 <SystemCoreClockUpdate+0x26>
+ 8000460:	4b10      	ldr	r3, [pc, #64]	; (80004a4 <SystemCoreClockUpdate+0x54>)
+ 8000462:	6033      	str	r3, [r6, #0]
+ 8000464:	686b      	ldr	r3, [r5, #4]
+ 8000466:	4a10      	ldr	r2, [pc, #64]	; (80004a8 <SystemCoreClockUpdate+0x58>)
+ 8000468:	061b      	lsls	r3, r3, #24
+ 800046a:	0f1b      	lsrs	r3, r3, #28
+ 800046c:	5cd3      	ldrb	r3, [r2, r3]
+ 800046e:	6832      	ldr	r2, [r6, #0]
+ 8000470:	40da      	lsrs	r2, r3
+ 8000472:	6032      	str	r2, [r6, #0]
+ 8000474:	bd70      	pop	{r4, r5, r6, pc}
+ 8000476:	230f      	movs	r3, #15
+ 8000478:	686c      	ldr	r4, [r5, #4]
+ 800047a:	686a      	ldr	r2, [r5, #4]
+ 800047c:	0ca4      	lsrs	r4, r4, #18
+ 800047e:	401c      	ands	r4, r3
+ 8000480:	3402      	adds	r4, #2
+ 8000482:	6ae9      	ldr	r1, [r5, #44]	; 0x2c
+ 8000484:	03d2      	lsls	r2, r2, #15
+ 8000486:	d507      	bpl.n	8000498 <SystemCoreClockUpdate+0x48>
+ 8000488:	4019      	ands	r1, r3
+ 800048a:	3101      	adds	r1, #1
+ 800048c:	4805      	ldr	r0, [pc, #20]	; (80004a4 <SystemCoreClockUpdate+0x54>)
+ 800048e:	f7ff fe3b 	bl	8000108 <__udivsi3>
+ 8000492:	4344      	muls	r4, r0
+ 8000494:	6034      	str	r4, [r6, #0]
+ 8000496:	e7e5      	b.n	8000464 <SystemCoreClockUpdate+0x14>
+ 8000498:	4804      	ldr	r0, [pc, #16]	; (80004ac <SystemCoreClockUpdate+0x5c>)
+ 800049a:	e7fa      	b.n	8000492 <SystemCoreClockUpdate+0x42>
+ 800049c:	40021000 	.word	0x40021000
+ 80004a0:	20000000 	.word	0x20000000
+ 80004a4:	007a1200 	.word	0x007a1200
+ 80004a8:	08000610 	.word	0x08000610
+ 80004ac:	003d0900 	.word	0x003d0900
+
+080004b0 <_ZN7SButtonC1EP12GPIO_TypeDeftbb>:
+#include "SButton.h"
+#include "STM32.h"
+
+// ==================== CONSTRUCTOR ====================
+SButton::SButton(GPIO_TypeDef *GPIOx_IN, uint16_t GPIO_Pin_IN, bool type, bool dir)
+ 80004b0:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 80004b2:	4d33      	ldr	r5, [pc, #204]	; (8000580 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xd0>)
+{
+    _GPIOx_IN     = GPIOx_IN;
+    _GPIO_Pin_IN  = GPIO_Pin_IN;
+    flags.noPin   = false;
+ 80004b4:	2620      	movs	r6, #32
+SButton::SButton(GPIO_TypeDef *GPIOx_IN, uint16_t GPIO_Pin_IN, bool type, bool dir)
+ 80004b6:	6085      	str	r5, [r0, #8]
+ 80004b8:	4d32      	ldr	r5, [pc, #200]	; (8000584 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xd4>)
+ 80004ba:	ac05      	add	r4, sp, #20
+ 80004bc:	60c5      	str	r5, [r0, #12]
+ 80004be:	2500      	movs	r5, #0
+ 80004c0:	8205      	strh	r5, [r0, #16]
+ 80004c2:	7485      	strb	r5, [r0, #18]
+ 80004c4:	6145      	str	r5, [r0, #20]
+ 80004c6:	7605      	strb	r5, [r0, #24]
+ 80004c8:	7645      	strb	r5, [r0, #25]
+    flags.noPin   = false;
+ 80004ca:	79c5      	ldrb	r5, [r0, #7]
+SButton::SButton(GPIO_TypeDef *GPIOx_IN, uint16_t GPIO_Pin_IN, bool type, bool dir)
+ 80004cc:	7824      	ldrb	r4, [r4, #0]
+    flags.noPin   = false;
+ 80004ce:	43b5      	bics	r5, r6
+ 80004d0:	71c5      	strb	r5, [r0, #7]
+
+#if defined(STM32F030x6)
+  if(_GPIOx_IN == GPIOA) RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+ 80004d2:	2590      	movs	r5, #144	; 0x90
+    _GPIOx_IN     = GPIOx_IN;
+ 80004d4:	6001      	str	r1, [r0, #0]
+    _GPIO_Pin_IN  = GPIO_Pin_IN;
+ 80004d6:	8082      	strh	r2, [r0, #4]
+  if(_GPIOx_IN == GPIOA) RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+ 80004d8:	05ed      	lsls	r5, r5, #23
+ 80004da:	42a9      	cmp	r1, r5
+ 80004dc:	d130      	bne.n	8000540 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0x90>
+ 80004de:	2580      	movs	r5, #128	; 0x80
+ 80004e0:	4e29      	ldr	r6, [pc, #164]	; (8000588 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xd8>)
+ 80004e2:	02ad      	lsls	r5, r5, #10
+ 80004e4:	6977      	ldr	r7, [r6, #20]
+  if(_GPIOx_IN == GPIOB) RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
+  if(_GPIOx_IN == GPIOC) RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
+  if(_GPIOx_IN == GPIOD) RCC->AHBENR |= RCC_AHBENR_GPIODEN;
+  if(_GPIOx_IN == GPIOF) RCC->AHBENR |= RCC_AHBENR_GPIOFEN;
+ 80004e6:	433d      	orrs	r5, r7
+ 80004e8:	6175      	str	r5, [r6, #20]
+
+  uint32_t I;
+  uint16_t D;
+
+  // Инициализируем вывод IN
+  I = 0;
+ 80004ea:	2500      	movs	r5, #0
+  D = _GPIO_Pin_IN;
+  while(I < 16) { D = D >> 1; if(D == 0) break; I++; }                          // Подсчитываем номер бита который соответствует настраиваемому выводу
+ 80004ec:	1056      	asrs	r6, r2, #1
+ 80004ee:	b2b2      	uxth	r2, r6
+ 80004f0:	2e00      	cmp	r6, #0
+ 80004f2:	d002      	beq.n	80004fa <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0x4a>
+ 80004f4:	3501      	adds	r5, #1
+ 80004f6:	2d10      	cmp	r5, #16
+ 80004f8:	d1f8      	bne.n	80004ec <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0x3c>
+  _GPIOx_IN->MODER    &= ~(0b11 << (I * 2));                                    // Затираем биты порта устанавливая порт на вход
+ 80004fa:	2203      	movs	r2, #3
+ 80004fc:	006d      	lsls	r5, r5, #1
+ 80004fe:	40aa      	lsls	r2, r5
+ 8000500:	43d6      	mvns	r6, r2
+ 8000502:	680f      	ldr	r7, [r1, #0]
+ 8000504:	4037      	ands	r7, r6
+ 8000506:	600f      	str	r7, [r1, #0]
+  _GPIOx_IN->OSPEEDR  |=  0b11 << (I * 2);                                      // Врубаем максимальную скорость порта
+ 8000508:	688f      	ldr	r7, [r1, #8]
+ 800050a:	433a      	orrs	r2, r7
+ 800050c:	608a      	str	r2, [r1, #8]
+
+  if(type)
+  {
+    _GPIOx_IN->PUPDR &= ~(0b11 << (I * 2));                                     // Сбрасываем регистр подтяжки
+ 800050e:	68ca      	ldr	r2, [r1, #12]
+ 8000510:	4032      	ands	r2, r6
+ 8000512:	60ca      	str	r2, [r1, #12]
+    _GPIOx_IN->PUPDR |=  0b10 << (I * 2);                                       // Подтягиваем вывод к земле
+ 8000514:	68ce      	ldr	r6, [r1, #12]
+ 8000516:	2202      	movs	r2, #2
+  if(type)
+ 8000518:	2b00      	cmp	r3, #0
+ 800051a:	d100      	bne.n	800051e <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0x6e>
+  }
+  else
+  {
+    _GPIOx_IN->PUPDR &= ~(0b11 << (I * 2));                                     // Сбрасываем регистр подтяжки
+    _GPIOx_IN->PUPDR |=  0b01 << (I * 2);                                       // Подтягиваем вывод к питанию
+ 800051c:	2201      	movs	r2, #1
+ 800051e:	40aa      	lsls	r2, r5
+ 8000520:	4332      	orrs	r2, r6
+ 8000522:	60ca      	str	r2, [r1, #12]
+  }
+
+#endif // defined(STM32F030x6)
+
+  flags.type      = type;
+ 8000524:	2101      	movs	r1, #1
+ 8000526:	2508      	movs	r5, #8
+ 8000528:	400b      	ands	r3, r1
+ 800052a:	00da      	lsls	r2, r3, #3
+ 800052c:	79c3      	ldrb	r3, [r0, #7]
+  flags.mode      = false;
+  flags.tickMode  = false;
+  flags.inv_state = dir;
+ 800052e:	400c      	ands	r4, r1
+  flags.type      = type;
+ 8000530:	43ab      	bics	r3, r5
+  flags.mode      = false;
+ 8000532:	4313      	orrs	r3, r2
+  flags.inv_state = dir;
+ 8000534:	22e9      	movs	r2, #233	; 0xe9
+ 8000536:	408c      	lsls	r4, r1
+ 8000538:	4013      	ands	r3, r2
+ 800053a:	4323      	orrs	r3, r4
+ 800053c:	71c3      	strb	r3, [r0, #7]
+}
+ 800053e:	bdf0      	pop	{r4, r5, r6, r7, pc}
+  if(_GPIOx_IN == GPIOB) RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
+ 8000540:	4d12      	ldr	r5, [pc, #72]	; (800058c <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xdc>)
+ 8000542:	42a9      	cmp	r1, r5
+ 8000544:	d104      	bne.n	8000550 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xa0>
+ 8000546:	2580      	movs	r5, #128	; 0x80
+ 8000548:	4e0f      	ldr	r6, [pc, #60]	; (8000588 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xd8>)
+ 800054a:	02ed      	lsls	r5, r5, #11
+ 800054c:	6977      	ldr	r7, [r6, #20]
+ 800054e:	e7ca      	b.n	80004e6 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0x36>
+  if(_GPIOx_IN == GPIOC) RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
+ 8000550:	4d0f      	ldr	r5, [pc, #60]	; (8000590 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xe0>)
+ 8000552:	42a9      	cmp	r1, r5
+ 8000554:	d104      	bne.n	8000560 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xb0>
+ 8000556:	2580      	movs	r5, #128	; 0x80
+ 8000558:	4e0b      	ldr	r6, [pc, #44]	; (8000588 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xd8>)
+ 800055a:	032d      	lsls	r5, r5, #12
+ 800055c:	6977      	ldr	r7, [r6, #20]
+ 800055e:	e7c2      	b.n	80004e6 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0x36>
+  if(_GPIOx_IN == GPIOD) RCC->AHBENR |= RCC_AHBENR_GPIODEN;
+ 8000560:	4d0c      	ldr	r5, [pc, #48]	; (8000594 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xe4>)
+ 8000562:	42a9      	cmp	r1, r5
+ 8000564:	d104      	bne.n	8000570 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xc0>
+ 8000566:	2580      	movs	r5, #128	; 0x80
+ 8000568:	4e07      	ldr	r6, [pc, #28]	; (8000588 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xd8>)
+ 800056a:	036d      	lsls	r5, r5, #13
+ 800056c:	6977      	ldr	r7, [r6, #20]
+ 800056e:	e7ba      	b.n	80004e6 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0x36>
+  if(_GPIOx_IN == GPIOF) RCC->AHBENR |= RCC_AHBENR_GPIOFEN;
+ 8000570:	4d09      	ldr	r5, [pc, #36]	; (8000598 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xe8>)
+ 8000572:	42a9      	cmp	r1, r5
+ 8000574:	d1b9      	bne.n	80004ea <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0x3a>
+ 8000576:	2580      	movs	r5, #128	; 0x80
+ 8000578:	4e03      	ldr	r6, [pc, #12]	; (8000588 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0xd8>)
+ 800057a:	03ed      	lsls	r5, r5, #15
+ 800057c:	6977      	ldr	r7, [r6, #20]
+ 800057e:	e7b2      	b.n	80004e6 <_ZN7SButtonC1EP12GPIO_TypeDeftbb+0x36>
+ 8000580:	01f4003c 	.word	0x01f4003c
+ 8000584:	019001f4 	.word	0x019001f4
+ 8000588:	40021000 	.word	0x40021000
+ 800058c:	48000400 	.word	0x48000400
+ 8000590:	48000800 	.word	0x48000800
+ 8000594:	48000c00 	.word	0x48000c00
+ 8000598:	48001400 	.word	0x48001400
+
+0800059c <_ZN7SButton11setTickModeEb>:
+{
+  flags.inv_state = dir;
+}
+void SButton::setTickMode(bool tickMode)
+{
+  flags.tickMode = tickMode;
+ 800059c:	2301      	movs	r3, #1
+ 800059e:	2210      	movs	r2, #16
+ 80005a0:	400b      	ands	r3, r1
+ 80005a2:	79c1      	ldrb	r1, [r0, #7]
+ 80005a4:	011b      	lsls	r3, r3, #4
+ 80005a6:	4391      	bics	r1, r2
+ 80005a8:	4319      	orrs	r1, r3
+ 80005aa:	71c1      	strb	r1, [r0, #7]
+}
+ 80005ac:	4770      	bx	lr
+	...
+
+080005b0 <__libc_init_array>:
+ 80005b0:	b570      	push	{r4, r5, r6, lr}
+ 80005b2:	2600      	movs	r6, #0
+ 80005b4:	4d0c      	ldr	r5, [pc, #48]	; (80005e8 <__libc_init_array+0x38>)
+ 80005b6:	4c0d      	ldr	r4, [pc, #52]	; (80005ec <__libc_init_array+0x3c>)
+ 80005b8:	1b64      	subs	r4, r4, r5
+ 80005ba:	10a4      	asrs	r4, r4, #2
+ 80005bc:	42a6      	cmp	r6, r4
+ 80005be:	d109      	bne.n	80005d4 <__libc_init_array+0x24>
+ 80005c0:	2600      	movs	r6, #0
+ 80005c2:	f000 f819 	bl	80005f8 <_init>
+ 80005c6:	4d0a      	ldr	r5, [pc, #40]	; (80005f0 <__libc_init_array+0x40>)
+ 80005c8:	4c0a      	ldr	r4, [pc, #40]	; (80005f4 <__libc_init_array+0x44>)
+ 80005ca:	1b64      	subs	r4, r4, r5
+ 80005cc:	10a4      	asrs	r4, r4, #2
+ 80005ce:	42a6      	cmp	r6, r4
+ 80005d0:	d105      	bne.n	80005de <__libc_init_array+0x2e>
+ 80005d2:	bd70      	pop	{r4, r5, r6, pc}
+ 80005d4:	00b3      	lsls	r3, r6, #2
+ 80005d6:	58eb      	ldr	r3, [r5, r3]
+ 80005d8:	4798      	blx	r3
+ 80005da:	3601      	adds	r6, #1
+ 80005dc:	e7ee      	b.n	80005bc <__libc_init_array+0xc>
+ 80005de:	00b3      	lsls	r3, r6, #2
+ 80005e0:	58eb      	ldr	r3, [r5, r3]
+ 80005e2:	4798      	blx	r3
+ 80005e4:	3601      	adds	r6, #1
+ 80005e6:	e7f2      	b.n	80005ce <__libc_init_array+0x1e>
+ 80005e8:	08000620 	.word	0x08000620
+ 80005ec:	08000620 	.word	0x08000620
+ 80005f0:	08000620 	.word	0x08000620
+ 80005f4:	08000624 	.word	0x08000624
+
+080005f8 <_init>:
+ 80005f8:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80005fa:	46c0      	nop			; (mov r8, r8)
+ 80005fc:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80005fe:	bc08      	pop	{r3}
+ 8000600:	469e      	mov	lr, r3
+ 8000602:	4770      	bx	lr
+
+08000604 <_fini>:
+ 8000604:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8000606:	46c0      	nop			; (mov r8, r8)
+ 8000608:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 800060a:	bc08      	pop	{r3}
+ 800060c:	469e      	mov	lr, r3
+ 800060e:	4770      	bx	lr
